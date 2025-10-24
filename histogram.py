@@ -27,6 +27,6 @@ def histogram(points, bins):
         if points[point_idx] < bins[bin_idx][0]:
             point_idx += 1
         else:
-            densities[bin_idx] += 1 / (n * bins[bin_idx][1] - bins[bin_idx][0]) 
+            densities[bin_idx] += 1 / (n * (bins[bin_idx][1] - bins[bin_idx][0])) 
             point_idx += 1
     return densities    # O(n) time complexity
