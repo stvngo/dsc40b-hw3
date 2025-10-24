@@ -15,18 +15,25 @@ def histogram(points, bins):
     # density = number of points in bin / number of points * bin width
     # aim for O(n) time complexity
 
-    densities = []
-    for bin in bins:
-        densities.append(0)
-
     n = len(points)
+    res = []
+    i = 0                    # pointer into points
 
-    bin_idx = 0
-    point_idx = 0
-    while point_idx < n:
-        if points[point_idx] < bins[bin_idx][0]:
-            point_idx += 1
-        else:
-            densities[bin_idx] += 1 / (n * (bins[bin_idx][1] - bins[bin_idx][0])) 
-            point_idx += 1
-    return densities    # O(n) time complexity
+    for a, b in bins:
+        # move i to the first point >= a
+        while i < n and points[i] < a:
+            i += 1
+
+        j = i                # j will advance to first point >= b
+        while j < n and points[j] < b:
+            j += 1
+
+        count = j - i
+        width = b - a
+        # guard against empty dataset or zero-width bins (shouldn't happen per spec)
+        density = (count / (n * width)) if (n > 0 and width > 0) else 0.0
+        res.append(density)
+
+        i = j  # next bin starts at b; reuse work already done
+
+    return res
