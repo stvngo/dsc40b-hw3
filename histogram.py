@@ -20,14 +20,13 @@ def histogram(points, bins):
         densities.append(0)
 
     n = len(points)
-    bin_width = bins[1][0] - bins[0][0]
 
     bin_idx = 0
     point_idx = 0
     while point_idx < n:
-        if points[point_idx] < bins[bin_idx][1]:
+        if points[point_idx] < bins[bin_idx][0]:
             point_idx += 1
         else:
-            densities[bin_idx] += 1 / (n * bin_width) 
+            densities[bin_idx] += 1 / (n * bins[bin_idx][1] - bins[bin_idx][0]) 
             point_idx += 1
     return densities    # O(n) time complexity
