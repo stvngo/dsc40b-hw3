@@ -56,8 +56,8 @@ def minimize_ell_sorted(data, colors):
     if n == 0:
         raise ValueError("data must be non-empty")
 
-    total_blue = sum(1 for c in colors if c == 'blue')
-    red_le_theta = 0          # reds counted on/before current theta
+    total_blue = sum(1 for c in colors if c == 'blue') # O(n)
+    red_le_theta = 0          # reds counted on/before current theta (should be >= theta)
     blue_gt_theta = total_blue  # invariant target: blues strictly after current theta
 
     best_theta = None
